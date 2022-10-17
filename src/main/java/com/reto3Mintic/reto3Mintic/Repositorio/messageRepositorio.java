@@ -1,6 +1,7 @@
 package com.reto3Mintic.reto3Mintic.Repositorio;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Admin;
+import com.reto3Mintic.reto3Mintic.Entidades.Library;
 import com.reto3Mintic.reto3Mintic.Entidades.Message;
 import com.reto3Mintic.reto3Mintic.Repositorio.crudRepositorio.messageCrudRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,16 @@ public class messageRepositorio {
         }
 
     }
+
+    public String actualizarMessage(Message message){
+        if(buscarMessage(message.getIdMessage()).isPresent()){
+            repositorio.save(message);
+            return "Message modificado exitosamente";
+        }else {
+            return "Message a actualizar no se encontró";
+        }
+    }
+
 
     public void eliminarMessageAll(Message message){ //método para eliminar
         repositorio.delete(message);

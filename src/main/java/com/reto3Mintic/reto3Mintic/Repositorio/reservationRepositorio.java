@@ -1,6 +1,7 @@
 package com.reto3Mintic.reto3Mintic.Repositorio;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Admin;
+import com.reto3Mintic.reto3Mintic.Entidades.Message;
 import com.reto3Mintic.reto3Mintic.Entidades.Reservation;
 import com.reto3Mintic.reto3Mintic.Repositorio.crudRepositorio.reservationCrudRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,15 @@ public class reservationRepositorio {
             return ("Reservation guardada");
         }
 
+    }
+
+    public String actualizarReservation(Reservation reservation){
+        if(buscarReservation(reservation.getIdReservation()).isPresent()){
+            repositorio.save(reservation);
+            return "Reservation modificada exitosamente";
+        }else {
+            return "Reservation a actualizar no se encontró";
+        }
     }
 
     public void eliminarReservationAll(Reservation reservation){ //método para eliminar

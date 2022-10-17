@@ -32,6 +32,11 @@ public class reservationControlador {
         return servicio.agregarReservation(reservation);
     }
 
+    @PutMapping("/api/Reservation/update")
+    public String actualizarReservation(@RequestBody Reservation reservation) {
+        return servicio.actualizarReservation(reservation);
+    }
+
     @DeleteMapping("/api/Reservation/delete/{idReservation}")
     public String eliminarReservation(@PathVariable("idReservation") Integer idReservation){
         return servicio.eliminarReservation(idReservation);

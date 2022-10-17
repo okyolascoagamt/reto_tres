@@ -34,6 +34,14 @@ public class categoryServicio {
 
     }
 
+    public String actualizarCategory(Category category){
+        if(buscarCategory(category.getId()).isPresent()){
+            repositorio.save(category);
+            return "Category modificada exitosamente";
+        }else {
+            return "La categoría a actualizar no se encontró";
+        }
+    }
     public void eliminarCategory(Category category){ //método para eliminar
         repositorio.delete(category);
     }

@@ -30,6 +30,10 @@ public class adminControlador {
         return servicio.agregarAdmin(admin);
     }
 
+    @PutMapping("/api/Admin/update")
+    public String actualizarAdmin(@RequestBody Admin admin){
+        return servicio.actualizarAdmin(admin);
+    }
 
     @DeleteMapping("/api/Admin/delete/all")
     public void eliminarAdminAll(Admin admin){

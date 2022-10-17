@@ -34,6 +34,15 @@ public class scoreRepositorio {
 
     }
 
+    public String actualizarScore(Score score){
+        if(buscarScore(score.getIdScore()).isPresent()){
+            repositorio.save(score);
+            return "Score modificada exitosamente";
+        }else {
+            return "Score a actualizar no se encontró";
+        }
+    }
+
     public void eliminarScoreAll(Score score){ //método para eliminar
         repositorio.delete(score);
     }

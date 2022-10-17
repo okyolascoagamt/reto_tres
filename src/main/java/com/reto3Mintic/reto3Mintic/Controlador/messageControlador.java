@@ -2,6 +2,7 @@ package com.reto3Mintic.reto3Mintic.Controlador;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Category;
 import com.reto3Mintic.reto3Mintic.Entidades.Client;
+import com.reto3Mintic.reto3Mintic.Entidades.Library;
 import com.reto3Mintic.reto3Mintic.Entidades.Message;
 import com.reto3Mintic.reto3Mintic.Servicios.messageServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,10 @@ public class messageControlador {
         return servicio.agregarMessage(message);
     }
 
+    @PutMapping("/api/Message/update")
+    public String actualizarMessage(@RequestBody Message message) {
+        return servicio.actualizarMessage(message);
+    }
 
     @DeleteMapping("/api/Message/delete/{idMessage}")
     public String eliminarMessage(@PathVariable("idMessage") Integer idMessage){

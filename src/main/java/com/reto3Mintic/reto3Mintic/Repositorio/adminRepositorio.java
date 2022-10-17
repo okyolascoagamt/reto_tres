@@ -32,6 +32,16 @@ public class adminRepositorio {
         }
 
     }
+
+    public String actualizarAdmin(Admin admin){
+        if(buscarAdmin(admin.getIdAdmin()).isPresent()){
+            repositorio.save(admin);
+            return "Admin modificado exitosamente";
+        }else {
+            return "El Admin a actualizar no se encontró";
+        }
+    }
+
     public void eliminarAdminAll(Admin admin){ //método para eliminar
         repositorio.delete(admin);
     }

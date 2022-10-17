@@ -31,6 +31,11 @@ public class categoryControlador {
         return servicio.agregarCategory(category);
     }
 
+    @PutMapping("/api/Category/update")
+    public String actualizarCategory(@RequestBody Category category) {
+        return servicio.actualizarCategory(category);
+    }
+
     @DeleteMapping("/api/Category/delete/{id}")
     public String eliminarCategory(@PathVariable("id") Integer id){
         return servicio.eliminarCategory(id);

@@ -30,8 +30,13 @@ public class clientControlador {
         return servicio.agregarClient(client);
     }
 
+    @PutMapping("/api/Client/update")
+    public String actualizarClient(@RequestBody Client client) {
 
-    @DeleteMapping("/api/CLient/delete/{idClient}")
+        return servicio.actualizarClient(client);
+    }
+
+    @DeleteMapping("/api/Client/delete/{idClient}")
     public String eliminarClient(@PathVariable("idClient") Integer idCLient){
         return servicio.eliminarClient(idCLient);
     }

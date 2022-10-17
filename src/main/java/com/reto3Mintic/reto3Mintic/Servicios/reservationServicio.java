@@ -36,7 +36,14 @@ public class reservationServicio {
 
     }
 
-
+    public String actualizarReservation(Reservation reservation){
+        if(buscarReservation(reservation.getIdReservation()).isPresent()){
+            repositorio.save(reservation);
+            return "Reservation modificada exitosamente";
+        }else {
+            return "Reservation a actualizar no se encontró";
+        }
+    }
     public void eliminarReservationAll(Reservation reservation){ //método para eliminar
         repositorio.delete(reservation);
     }

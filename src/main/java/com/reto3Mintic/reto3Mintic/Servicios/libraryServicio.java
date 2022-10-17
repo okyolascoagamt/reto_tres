@@ -35,6 +35,16 @@ public class libraryServicio {
 
     }
 
+    public String actualizarLibrary(Library library){
+        if(buscarLibrary(library.getId()).isPresent()){
+            repositorio.save(library);
+            return "Library modificado exitosamente";
+        }else {
+            return "Library a actualizar no se encontró";
+        }
+    }
+
+
     public void eliminarLibraryAll(Library library){ //método para eliminar
         repositorio.delete(library);
     }

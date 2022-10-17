@@ -34,6 +34,15 @@ public class clientServicio {
 
     }
 
+    public String actualizarClient(Client client){
+        if(buscarClient(client.getIdClient()).isPresent()){
+            repositorio.save(client);
+            return "Cliente modificado exitosamente";
+        }else {
+            return "El cliente a actualizar no se encontró";
+        }
+    }
+
     public void eliminarClientAll(Client client){ //método para eliminar
         repositorio.delete(client);
     }

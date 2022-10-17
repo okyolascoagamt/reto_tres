@@ -32,6 +32,15 @@ public class messageServicio {
 
     }
 
+    public String actualizarMessage(Message message){
+        if(buscarMessage(message.getIdMessage()).isPresent()){
+            repositorio.save(message);
+            return "Message modificado exitosamente";
+        }else {
+            return "Message a actualizar no se encontró";
+        }
+    }
+
     public void eliminarMessageAll(Message message){ //método para eliminar
         repositorio.delete(message);
     }

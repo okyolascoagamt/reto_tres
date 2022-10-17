@@ -1,6 +1,7 @@
 package com.reto3Mintic.reto3Mintic.Repositorio;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Admin;
+import com.reto3Mintic.reto3Mintic.Entidades.Client;
 import com.reto3Mintic.reto3Mintic.Entidades.Library;
 import com.reto3Mintic.reto3Mintic.Repositorio.crudRepositorio.libraryCrudRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,16 @@ public class libraryRepositorio {
         }
 
     }
+
+    public String actualizarLibrary(Library library){
+        if(buscarLibrary(library.getId()).isPresent()){
+            repositorio.save(library);
+            return "Library modificado exitosamente";
+        }else {
+            return "Library a actualizar no se encontró";
+        }
+    }
+
 
     public void eliminarLibraryAll(Library library){ //método para eliminar
         repositorio.delete(library);

@@ -1,6 +1,7 @@
 package com.reto3Mintic.reto3Mintic.Controlador;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Category;
+import com.reto3Mintic.reto3Mintic.Entidades.Client;
 import com.reto3Mintic.reto3Mintic.Entidades.Library;
 import com.reto3Mintic.reto3Mintic.Servicios.libraryServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class libraryControlador {
         return servicio.agregarLibrary(library);
     }
 
+    @PutMapping("/api/Lib/update")
+    public String actualizarLibrary(@RequestBody Library library) {
+        return servicio.actualizarLibrary(library);
+    }
 
     @DeleteMapping("/api/Lib/delete/{id}")
     public String eliminarLibrary(@PathVariable("id") Integer id){
