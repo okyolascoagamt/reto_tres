@@ -34,11 +34,11 @@ public class Library implements Serializable {
     @JsonIgnoreProperties("libs")
     private Category category;
 
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
     @JsonIgnoreProperties({"lib", "client"})
     private List<Message> messages;
 
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
     @JsonIgnoreProperties({"lib", "client"})
     private List<Reservation> reservations;
 
