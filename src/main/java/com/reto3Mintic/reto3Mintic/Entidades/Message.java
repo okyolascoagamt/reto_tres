@@ -1,41 +1,53 @@
+
 package com.reto3Mintic.reto3Mintic.Entidades;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "Message")
-public class Message {
+@Table(name = "message")
+public class Message implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idMessage", unique = true, nullable = false)
+    private int idMessage;
 
     @Column(name = "messageText", nullable = true, length = 250)
     private String messageText;
 
+
     @ManyToOne
-    @JoinColumn(name = "id_library", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
-    private Library library;
+    @JoinColumn(name = "libId")
+    @JsonIgnoreProperties({"messages","reservations"})
+    private Library lib;
+
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties({"messages","reservations"})
+    private Client client;
 
     public Message() {
     }
 
-    public Message(int id, String messageText, Library library) {
-        this.id = id;
+    public Message(int idMessage, String messageText, Library lib, Client client) {
+        this.idMessage = idMessage;
         this.messageText = messageText;
-        this.library = library;
+        this.lib = lib;
+        this.client = client;
     }
 
-    public int getId() {
-        return id;
+    public int getIdMessage() {
+        return idMessage;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdMessage(int idMessage) {
+        this.idMessage = idMessage;
     }
 
     public String getMessageText() {
@@ -46,20 +58,29 @@ public class Message {
         this.messageText = messageText;
     }
 
-    public Library getLibrary() {
-        return library;
+    public Library getLib() {
+        return lib;
     }
 
-    public void setLibrary(Library library) {
-        this.library = library;
+    public void setLib(Library lib) {
+        this.lib = lib;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
     public String toString() {
         return "Message{" +
-                "id=" + id +
+                "idMessage=" + idMessage +
                 ", messageText='" + messageText + '\'' +
-                ", library=" + library +
+                ", lib=" + lib +
+                ", client=" + client +
                 '}';
     }
 }

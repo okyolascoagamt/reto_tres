@@ -1,30 +1,50 @@
 package com.reto3Mintic.reto3Mintic.Servicios;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Admin;
-import com.reto3Mintic.reto3Mintic.Repositorio.adminRepositorio;
+import com.reto3Mintic.reto3Mintic.Repositorio.crudRepositorio.adminCrudRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class adminServicio {
 
-    private adminRepositorio repositorio;
+    private adminCrudRepositorio repositorio;
 
-    public adminServicio(adminRepositorio repositorio) {
+    public adminServicio(adminCrudRepositorio repositorio) {
         this.repositorio = repositorio;
     }
 
-    public List<Admin>listaAdmin(){
-        return (List<Admin>) repositorio.findAll(); //Método para consultar todos los administradores
+    public List<Admin> listaAdmin(){
+        return (List<Admin>) repositorio.findAll();
     }
 
-    public Admin buscarAdmin(int id){
-        return repositorio.findById(id).get(); //Método para buscar administradores por Id
+    public Optional<Admin> buscarAdmin(int id){
+        return repositorio.findById(id); //Método para buscar administradores por Id
     }
 
-   /* public Admin porEmail(String email){
-        return repositorio.find
-    }*/
+    public String agregarAdmin(Admin admin){  //método para insertar
+        if(buscarAdmin(admin.getIdAdmin()).isPresent()){
+            return "Admin Ya existe";
+        }else{
+            repositorio.save(admin);
+            return ("Admin guardado");
+            }
+
+    }
+    public void eliminarAdminAll(Admin admin){ //método para eliminar
+        repositorio.delete(admin);
+    }
+
+
+    public String eliminarAdmin(Integer idAmin){
+        if(buscarAdmin(idAmin).isPresent()){
+            repositorio.deleteById(idAmin);
+            return "Admin eliminado";
+        }else {
+            return "No se encuentra el Admin";
+        }
+    }
 
 }

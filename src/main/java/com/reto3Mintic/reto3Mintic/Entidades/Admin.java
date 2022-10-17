@@ -2,15 +2,16 @@ package com.reto3Mintic.reto3Mintic.Entidades;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "Admin")
-public class Admin {
+@Table(name = "admin")
+public class Admin implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "idAmin", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idAdmin;
 
     @Column(name = "name", nullable = true, length = 250)
     private String name;
@@ -24,19 +25,19 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(int id, String name, String email, String password) {
-        this.id = id;
+    public Admin(int idAdmin, String name, String email, String password) {
+        this.idAdmin = idAdmin;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int getIdAdmin() {
+        return idAdmin;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdAdmin(int idAdmin) {
+        this.idAdmin = idAdmin;
     }
 
     public String getName() {
@@ -66,7 +67,7 @@ public class Admin {
     @Override
     public String toString() {
         return "Admin{" +
-                "id=" + id +
+                "idAdmin=" + idAdmin +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

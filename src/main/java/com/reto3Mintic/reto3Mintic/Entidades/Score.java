@@ -1,78 +1,74 @@
+
 package com.reto3Mintic.reto3Mintic.Entidades;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "Score")
-public class Score {
+@Table(name = "score")
+public class Score implements Serializable{
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idScore", unique = true, nullable = false)
+    private int idScore;
 
     @Column(name = "score", nullable = true)
-    private int score;
+    private int scoreScore;
 
     @Column(name = "message", nullable = true, length = 250)
-    private String message;
+    private String messageScore;
 
-    @ManyToOne
-    @JoinColumn(name = "id_reservation", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
+    /*
+    @OneToOne
+    @JsonIgnoreProperties("score")
     private Reservation reservation;
+    */
 
     public Score() {
     }
 
-    public Score(int id, int score, String message, Reservation reservation) {
-        this.id = id;
-        this.score = score;
-        this.message = message;
-        this.reservation = reservation;
+    public Score(int idScore, int scoreScore, String messageScore) {
+        this.idScore = idScore;
+        this.scoreScore = scoreScore;
+        this.messageScore = messageScore;
     }
 
-    public int getId() {
-        return id;
+    public int getIdScore() {
+        return idScore;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdScore(int idScore) {
+        this.idScore = idScore;
     }
 
-    public int getScore() {
-        return score;
+    public int getScoreScore() {
+        return scoreScore;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScoreScore(int scoreScore) {
+        this.scoreScore = scoreScore;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageScore() {
+        return messageScore;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setMessageScore(String messageScore) {
+        this.messageScore = messageScore;
     }
 
     @Override
     public String toString() {
         return "Score{" +
-                "id=" + id +
-                ", score=" + score +
-                ", message='" + message + '\'' +
-                ", reservation=" + reservation +
+                "idScore=" + idScore +
+                ", scoreScore=" + scoreScore +
+                ", messageScore='" + messageScore + '\'' +
                 '}';
     }
 }

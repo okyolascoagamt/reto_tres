@@ -2,14 +2,18 @@ package com.reto3Mintic.reto3Mintic.Entidades;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "Library")
-public class Library {
+@Table(name = "library")
+public class Library implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
@@ -26,20 +30,30 @@ public class Library {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_category", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
+    @JoinColumn(name = "categoryId")
+    @JsonIgnoreProperties("libs")
     private Category category;
+
+    @OneToMany(cascade = {CascadeType.PERSIST})
+    @JsonIgnoreProperties({"lib", "client"})
+    private List<Message> messages;
+
+    @OneToMany(cascade = {CascadeType.PERSIST})
+    @JsonIgnoreProperties({"lib", "client"})
+    private List<Reservation> reservations;
 
     public Library() {
     }
 
-    public Library(int id, String name, String target, int capacity, String description, Category category) {
+    public Library(int id, String name, String target, int capacity, String description, Category category, List<Message> messages, List<Reservation> reservations) {
         this.id = id;
         this.name = name;
         this.target = target;
         this.capacity = capacity;
         this.description = description;
         this.category = category;
+        this.messages = messages;
+        this.reservations = reservations;
     }
 
     public int getId() {
@@ -90,6 +104,22 @@ public class Library {
         this.category = category;
     }
 
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     @Override
     public String toString() {
         return "Library{" +
@@ -99,6 +129,8 @@ public class Library {
                 ", capacity=" + capacity +
                 ", description='" + description + '\'' +
                 ", category=" + category +
+                ", messages=" + messages +
+                ", reservations=" + reservations +
                 '}';
     }
 }

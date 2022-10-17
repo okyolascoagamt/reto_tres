@@ -1,18 +1,18 @@
 package com.reto3Mintic.reto3Mintic.Entidades;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "Client")
-public class Client {
+@Table(name = "client")
+public class Client implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idClient", unique = true, nullable = false)
+    private int idClient;
 
     @Column(name = "name", nullable = true, length = 250)
     private String name;
@@ -26,23 +26,34 @@ public class Client {
     @Column(name = "password", nullable = true, length = 45)
     private String password;
 
+
+    @OneToMany(cascade = {CascadeType.PERSIST})
+    @JsonIgnoreProperties("client")
+    private List<Message> messages;
+
+    @OneToMany(cascade = {CascadeType.PERSIST})
+    @JsonIgnoreProperties("client")
+    private List<Reservation> reservations;
+
     public Client() {
     }
 
-    public Client(int id, String name, int age, String email, String password) {
-        this.id = id;
+    public Client(int idClient, String name, int age, String email, String password, List<Message> messages, List<Reservation> reservations) {
+        this.idClient = idClient;
         this.name = name;
         this.age = age;
         this.email = email;
         this.password = password;
+        this.messages = messages;
+        this.reservations = reservations;
     }
 
-    public int getId() {
-        return id;
+    public int getIdClient() {
+        return idClient;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
     public String getName() {
@@ -77,14 +88,32 @@ public class Client {
         this.password = password;
     }
 
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
+                "idClient=" + idClient +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", messages=" + messages +
+                ", reservations=" + reservations +
                 '}';
     }
 }

@@ -1,9 +1,51 @@
 package com.reto3Mintic.reto3Mintic.Repositorio;
 
+import com.reto3Mintic.reto3Mintic.Entidades.Admin;
 import com.reto3Mintic.reto3Mintic.Entidades.Reservation;
-import org.springframework.data.repository.CrudRepository;
+import com.reto3Mintic.reto3Mintic.Repositorio.crudRepositorio.reservationCrudRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
-public interface reservationRepositorio extends CrudRepository<Reservation, Integer> {
+public class reservationRepositorio {
+
+    @Autowired
+    private reservationCrudRepositorio repositorio;
+
+
+    public List<Reservation> listaReservation(){
+        return (List<Reservation>) repositorio.findAll();
+    }
+
+
+    public Optional<Reservation> buscarReservation(int idReservation){
+        return repositorio.findById(idReservation); //Método para buscar administradores por Id
+    }
+
+    public String agregarReservation(Reservation reservation){
+        if(buscarReservation(reservation.getIdReservation()).isPresent()){
+            return "Reservation ya existe";
+        }else{
+            repositorio.save(reservation);
+            return ("Reservation guardada");
+        }
+
+    }
+
+    public void eliminarReservationAll(Reservation reservation){ //método para eliminar
+        repositorio.delete(reservation);
+    }
+
+    public String eliminarReservation(Integer idReservation){
+        if(buscarReservation(idReservation).isPresent()){
+            repositorio.deleteById(idReservation);
+            return "Reservation eliminado";
+        }else {
+            return "No se encuentra el Reservation";
+        }
+    }
+
 }

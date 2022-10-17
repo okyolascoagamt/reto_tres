@@ -1,19 +1,24 @@
+
 package com.reto3Mintic.reto3Mintic.Entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "Reservation")
-public class Reservation {
+@Table(name = "reservation")
+public class Reservation implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idReservation", unique = true, nullable = false)
+    private int idReservation;
 
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "startDate", nullable = false )
     private Date startDate;
 
@@ -21,36 +26,48 @@ public class Reservation {
     private Date devolutionDate;
 
     @Column(name = "status", nullable = true, length = 45)
-    private String status;
+    private String status ="Created";
 
     @ManyToOne
-    @JoinColumn(name = "id_client", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties({"reservations", "messages"})
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name = "id_library", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
-    private Library library;
+    @JoinColumn(name = "libId")
+    @JsonIgnoreProperties("reservations")
+    private Library lib;
+
+    @ManyToOne
+    @JoinColumn(name = "scoreId")
+    @JsonIgnoreProperties
+    private Score score;
+
+    /*
+    @OneToOne
+    @JsonIgnoreProperties("reservation")
+    private Score score
+    */
 
     public Reservation() {
     }
 
-    public Reservation(int id, Date startDate, Date devolutionDate, String status, Client client, Library library) {
-        this.id = id;
+    public Reservation(int idReservation, Date startDate, Date devolutionDate, String status, Client client, Library lib, Score score) {
+        this.idReservation = idReservation;
         this.startDate = startDate;
         this.devolutionDate = devolutionDate;
         this.status = status;
         this.client = client;
-        this.library = library;
+        this.lib = lib;
+        this.score = score;
     }
 
-    public int getId() {
-        return id;
+    public int getIdReservation() {
+        return idReservation;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdReservation(int idReservation) {
+        this.idReservation = idReservation;
     }
 
     public Date getStartDate() {
@@ -85,23 +102,32 @@ public class Reservation {
         this.client = client;
     }
 
-    public Library getLibrary() {
-        return library;
+    public Library getLib() {
+        return lib;
     }
 
-    public void setLibrary(Library library) {
-        this.library = library;
+    public void setLib(Library lib) {
+        this.lib = lib;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
     }
 
     @Override
     public String toString() {
         return "Reservation{" +
-                "id=" + id +
+                "idReservation=" + idReservation +
                 ", startDate=" + startDate +
                 ", devolutionDate=" + devolutionDate +
                 ", status='" + status + '\'' +
                 ", client=" + client +
-                ", library=" + library +
+                ", lib=" + lib +
+                ", score=" + score +
                 '}';
     }
 }
