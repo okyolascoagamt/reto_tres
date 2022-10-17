@@ -36,9 +36,9 @@ public class scoreServicio {
 
     }
 
-    public void eliminarScoreAll(Score score){ //método para eliminar
+   /* public void eliminarScoreAll(Score score){ //método para eliminar
         repositorio.delete(score);
-    }
+    }*/
 
     public String eliminarScore(Integer idScore){
         if(buscarScore(idScore).isPresent()){
