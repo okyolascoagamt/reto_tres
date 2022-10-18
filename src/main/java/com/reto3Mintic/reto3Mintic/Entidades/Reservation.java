@@ -29,14 +29,15 @@ public class Reservation implements Serializable {
     private String status ="Created";
 
     @ManyToOne
+    @JoinColumn(name = "libId")
+    @JsonIgnoreProperties("reservations")
+    private Library lib;
+
+    @ManyToOne
     @JoinColumn(name = "clientId")
     @JsonIgnoreProperties({"reservations", "messages"})
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "libId")
-    @JsonIgnoreProperties("reservations")
-    private Library lib;
 
     @ManyToOne
     @JoinColumn(name = "scoreId")
@@ -52,13 +53,13 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    public Reservation(int idReservation, Date startDate, Date devolutionDate, String status, Client client, Library lib, Score score) {
+    public Reservation(int idReservation, Date startDate, Date devolutionDate, String status, Library lib, Client client, Score score) {
         this.idReservation = idReservation;
         this.startDate = startDate;
         this.devolutionDate = devolutionDate;
         this.status = status;
-        this.client = client;
         this.lib = lib;
+        this.client = client;
         this.score = score;
     }
 
@@ -94,20 +95,20 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public Library getLib() {
         return lib;
     }
 
     public void setLib(Library lib) {
         this.lib = lib;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Score getScore() {
@@ -125,8 +126,8 @@ public class Reservation implements Serializable {
                 ", startDate=" + startDate +
                 ", devolutionDate=" + devolutionDate +
                 ", status='" + status + '\'' +
-                ", client=" + client +
                 ", lib=" + lib +
+                ", client=" + client +
                 ", score=" + score +
                 '}';
     }
