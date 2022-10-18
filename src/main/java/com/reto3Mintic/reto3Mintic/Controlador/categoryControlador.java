@@ -36,7 +36,7 @@ public class categoryControlador {
         return servicio.actualizarCategory(category);
     }
 
-    @DeleteMapping("/api/Category/delete/{id}")
+    @DeleteMapping("/api/Category/{id}")
     public String eliminarCategory(@PathVariable("id") Integer id){
         return servicio.eliminarCategory(id);
     }

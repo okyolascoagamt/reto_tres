@@ -31,12 +31,12 @@ public class libraryControlador {
         return servicio.agregarLibrary(library);
     }
 
-    @PutMapping("/api/Lib/update")
+    @PutMapping("/api/Library/update")
     public String actualizarLibrary(@RequestBody Library library) {
         return servicio.actualizarLibrary(library);
     }
 
-    @DeleteMapping("/api/Lib/delete/{id}")
+    @DeleteMapping("/api/Library/{id}")
     public String eliminarLibrary(@PathVariable("id") Integer id){
         return servicio.eliminarLibrary(id);
     }

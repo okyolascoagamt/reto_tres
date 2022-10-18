@@ -40,7 +40,7 @@ public class adminControlador {
         servicio.eliminarAdminAll(admin);
     }
 
-    @DeleteMapping("/api/Admin/delete/{idAdmin}")
+    @DeleteMapping("/api/Admin/{id}")
     public String eliminarAdmin(@PathVariable("idAdmin") Integer idAmin){
         return servicio.eliminarAdmin(idAmin);
     }

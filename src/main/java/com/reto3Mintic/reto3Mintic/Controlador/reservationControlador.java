@@ -37,8 +37,8 @@ public class reservationControlador {
         return servicio.actualizarReservation(reservation);
     }
 
-    @DeleteMapping("/api/Reservation/delete/{idReservation}")
-    public String eliminarReservation(@PathVariable("idReservation") Integer idReservation){
+    @DeleteMapping("/api/Reservation/{id}")
+    public String eliminarReservation(@PathVariable("id") Integer idReservation){
         return servicio.eliminarReservation(idReservation);
     }
 

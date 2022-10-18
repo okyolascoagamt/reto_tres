@@ -36,8 +36,8 @@ public class clientControlador {
         return servicio.actualizarClient(client);
     }
 
-    @DeleteMapping("/api/Client/delete/{idClient}")
-    public String eliminarClient(@PathVariable("idClient") Integer idCLient){
+    @DeleteMapping("/api/Client/{id}")
+    public String eliminarClient(@PathVariable("id") Integer idCLient){
         return servicio.eliminarClient(idCLient);
     }
 

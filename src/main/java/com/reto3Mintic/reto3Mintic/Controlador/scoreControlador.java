@@ -37,8 +37,8 @@ public class scoreControlador {
         return servicio.actualizarScore(score);
     }
 
-    @DeleteMapping("/api/Score/delete/{idScore}")
-    public String eliminarScore(@PathVariable("idScore") Integer idScore){
+    @DeleteMapping("/api/Score/{id}")
+    public String eliminarScore(@PathVariable("id") Integer idScore){
         return servicio.eliminarScore(idScore);
     }
 }

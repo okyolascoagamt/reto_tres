@@ -37,8 +37,8 @@ public class messageControlador {
         return servicio.actualizarMessage(message);
     }
 
-    @DeleteMapping("/api/Message/delete/{idMessage}")
-    public String eliminarMessage(@PathVariable("idMessage") Integer idMessage){
+    @DeleteMapping("/api/Message/{id}")
+    public String eliminarMessage(@PathVariable("id") Integer idMessage){
         return servicio.eliminarMessage(idMessage);
     }
 
