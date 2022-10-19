@@ -2,6 +2,8 @@ package com.reto3Mintic.reto3Mintic.Controlador;
 
 
 import com.reto3Mintic.reto3Mintic.Entidades.Category;
+import com.reto3Mintic.reto3Mintic.Entidades.DTOs.CountClient;
+import com.reto3Mintic.reto3Mintic.Entidades.DTOs.CountStatus;
 import com.reto3Mintic.reto3Mintic.Entidades.Message;
 import com.reto3Mintic.reto3Mintic.Entidades.Reservation;
 import com.reto3Mintic.reto3Mintic.Servicios.reservationServicio;
@@ -42,4 +44,22 @@ public class reservationControlador {
         return servicio.eliminarReservation(idReservation);
     }
 
+    @GetMapping("/api/Reservation/report-clients")
+    public List<CountClient>getReportTopClients(){
+        return servicio.getTopClients();
+    }
+
+    @GetMapping("/api/Reservation/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation>getReportReservationsDate(@PathVariable("dateOne")String dateOne, @PathVariable("dateTwo")String dateTwo){
+        return servicio.getReservationPeriod(dateOne, dateTwo);
+    }
+
+    public List<Reservation> getReservationsByStatus(String status){
+        return getReservationsByStatus(status);
+    }
+
+    @GetMapping("/api/Reservation/report-status")
+    public CountStatus getReportStatusReservations(){
+        return servicio.getReservationsStatus();
+    }
 }

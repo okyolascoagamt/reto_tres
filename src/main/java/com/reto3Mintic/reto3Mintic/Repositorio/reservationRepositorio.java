@@ -1,12 +1,16 @@
 package com.reto3Mintic.reto3Mintic.Repositorio;
 
 import com.reto3Mintic.reto3Mintic.Entidades.Admin;
+import com.reto3Mintic.reto3Mintic.Entidades.Client;
+import com.reto3Mintic.reto3Mintic.Entidades.DTOs.CountClient;
 import com.reto3Mintic.reto3Mintic.Entidades.Message;
 import com.reto3Mintic.reto3Mintic.Entidades.Reservation;
 import com.reto3Mintic.reto3Mintic.Repositorio.crudRepositorio.reservationCrudRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +60,22 @@ public class reservationRepositorio {
         }else {
             return "No se encuentra el Reservation";
         }
+    }
+
+    //Reto 5
+    public List<CountClient> getTopClients(){
+        List<CountClient> respuesta = new ArrayList<>();
+
+        List<Object[]> reporte = repositorio.countTotalReservationsByCLients();
+
+        for (int i=0; i<reporte.size(); i++){
+            respuesta.add(new CountClient((Long) reporte.get(i)[1], (Client) reporte.get(i)[0] ));
+        }
+        return respuesta;
+    }
+
+    public List<Reservation> getReservationPeriod(Date a, Date b){
+        return repositorio.findAllByStartDateAfterAndDevolutionDateBefore(a,b);
     }
 
 }
